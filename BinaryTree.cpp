@@ -1,3 +1,4 @@
+/*THIS IS BINARY TREE IT IS INTERESTING*/
 #include <iostream>
 
 struct node
