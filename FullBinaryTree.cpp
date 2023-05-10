@@ -17,6 +17,7 @@ private:
     node* root;       //declaring root node
     //declaring counter to count number of iterations required to search a element
     static int count; 
+    int temp;
 public:
 
     //constructor which also initialises root node to NULL
@@ -29,7 +30,7 @@ public:
         destroyBTree(root);  // call function which destroys The tree
     }
 
-    void create(int key)  //Create Function to create Binary Tree
+    void create(int key)   //Create Function to create Binary Tree
     {
         if (root == NULL)
         {
@@ -40,15 +41,15 @@ public:
         }
         else
         {
-            insert(key, root); //Call to insert Function 
+            insert(key, root);  //Call to insert Function 
         }
     }
     
-    void searchKey(int key) // Function to search a particular element
+    void searchKey(int key)  // Function to search a particular element
     {
         if(root!=NULL)
         {
-            int temp = search(key, root); // call to serach function
+            int temp = search(key, root);  // call to serach function
             std::cout << "In " << temp << " counts/iterations\n";
             // you will also get number of iterations required to find that element 
         }
@@ -58,25 +59,35 @@ public:
         }
     }
 
-    void inorderPrint() // Function to Print inorder sequence
+    void inorderPrint()  // Function to Print inorder sequence
     {
         std::cout << "sequence by doing inorder traversal : ";
-        inorder(root); // call to inorder()
+        inorder(root);  // call to inorder()
         std::cout << "\n";
     }
 
-    void preorderPrint() // Function to Print preorder sequence
+    void preorderPrint()  // Function to Print preorder sequence
     {
         std::cout << "sequence by doing preorder traversal : ";
-        preorder(root); // call to preorder() 
+        preorder(root);  // call to preorder() 
         std::cout << "\n";
     }
 
-    void postorderPrint() //Function to Print postorder sequence
+    void postorderPrint()  //Function to Print postorder sequence
     {
         std::cout << "sequence by doing postorder traversal : ";
-        postorder(root); // call to postorder()
+        postorder(root);  // call to postorder()
         std::cout << "\n";
+    }
+    void maxVal()  //Function to get/Print Maximum value in BinaryTree
+    {
+        int x= maxValue(root);  //Call to maxValue()
+        std::cout<<"The maximum value in tree is : "<<x<<"\n";
+    }
+    void minVal()  //Function to get/Print Minimum value in BinaryTree
+    {
+        int x= minValue(root);  //Call to minValue()
+        std::cout<<"The minimum value in tree is : "<<x<<"\n";
     }
 
 private:
@@ -172,6 +183,41 @@ private:
             search(key, leaf->right);
         }
     }
+    
+    // Function which returns maximum value in Binary Tree
+    inline int maxValue(node* leaf)
+    {
+       int max{0};    
+       if(leaf!=NULL)
+       {
+         if(leaf->left!=NULL)
+         {
+             max=maxValue(leaf->left);
+         }
+         else
+         {
+            max=leaf->data; 
+         }
+       }
+       return max;
+    }
+     // Function which returns minimum value in Binary Tree
+    inline int minValue(node* leaf)
+    {
+       int min{0};    
+       if(leaf!=NULL)
+       {
+         if(leaf->right!=NULL)
+         {
+             min=maxValue(leaf->right);
+         }
+         else
+         {
+            min=leaf->data; 
+         }
+       }
+       return min;
+    }
 };
 
 //Initialisation of Static int member variable
@@ -187,7 +233,9 @@ int main() //Entry Point
         << "To search a element in Binary Tree enter choice 2\n"
         << "To do Post-Order Traversal enter choice 3\n"
         << "To do Pre-Order Traversal enter choice 4\n"
-        << "To do In-Order Traversal enter choice 5\n";
+        << "To do In-Order Traversal enter choice 5\n"
+        << "To get maximum element of Binary Tree enter choice 6\n"
+        << "To get minimum element of Binary Tree enter choice 7\n";
     char ch = 'y';
     int choice{ 0 };
     while (ch == 'y' || ch == 'Y')
@@ -218,6 +266,12 @@ int main() //Entry Point
             case 5:
                 b.inorderPrint();
                 break;
+            case 6:
+                b.maxVal();
+                break;
+            case 7:
+                b.minVal();
+                break;
             }
             std::cout << "do you want to continue,enter y or Y(to exit press n)\n";
             std::cin >> ch;
@@ -230,5 +284,3 @@ int main() //Entry Point
     }
     return 0;
 }
-
-  
